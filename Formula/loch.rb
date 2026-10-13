@@ -1,8 +1,8 @@
 class Loch < Formula
   desc "Per-commit LOC history via gix and tokei, without a working tree"
   homepage "https://github.com/will-wright-eng/loch"
-  url "https://github.com/will-wright-eng/loch/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "f4e334bced7ec2593f1e551825604cdcc0fa96102071cc0e0bcba6853c149cab"
+  url "https://github.com/will-wright-eng/loch/archive/refs/tags/v0.2.0.tar.gz"
+  sha256 "ad0765eb9fc73b304e8efae00a1eb4bd6ab4ad5a2d43b2cc0fbbc4126be7ce2a"
   license "GPL-3.0-or-later"
   head "https://github.com/will-wright-eng/loch.git", branch: "main"
 

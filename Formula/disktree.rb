@@ -1,8 +1,8 @@
 class Disktree < Formula
   desc "Treemap for finding and removing what fills your disk"
   homepage "https://github.com/tobi/disktree"
-  url "https://github.com/tobi/disktree/archive/refs/tags/v0.10.1.tar.gz"
-  sha256 "d4f643b578799d0a4f702b64cfa6f180110280cbd8e02d14f7178efe0709f7ce"
+  url "https://github.com/tobi/disktree/archive/refs/tags/v0.11.0.tar.gz"
+  sha256 "b7a3c173dd7e95f5258eaddb146dd8503e97c171e5318baa9962eabf8ee64913"
   license "MIT"
   head "https://github.com/tobi/disktree.git", branch: "main"
 
