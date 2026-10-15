@@ -46,7 +46,7 @@ A formula is **valid** when:
 | `audit.yml` | push to `main` or PR touching `Formula/**` (changed formulae only), manual dispatch | Passing on `main` for the original six; `disktree` pending first run |
 | `livecheck.yml` | 1st of each month 14:00 UTC, manual dispatch | Not yet run; PR creation blocked until T6.1 |
 
-`livecheck.yml` runs `brew livecheck --tap will-wright-eng/tools --json`, then
+`livecheck.yml` runs `brew livecheck --tap will-wright-eng/tap --json`, then
 `.github/scripts/bump_formula.py` rewrites `url` and `sha256` for each outdated formula
 (and regenerates Python resources). The workflow pushes a `livecheck/bump` branch,
 opens or updates a PR, and dispatches `audit.yml` for the bumped formulae against that
@@ -221,7 +221,7 @@ to the push, so `brew` and the bump script never see it.
       may run on untrusted input (no `pull_request_target`).
 
   ```bash
-  gh api -X PUT repos/will-wright-eng/homebrew-tools/actions/permissions/workflow \
+  gh api -X PUT repos/will-wright-eng/homebrew-tap/actions/permissions/workflow \
     -f default_workflow_permissions=read -F can_approve_pull_request_reviews=true
   ```
 
@@ -230,9 +230,9 @@ to the push, so `brew` and the bump script never see it.
       requiring pins won't break it.
 
   ```bash
-  gh api -X PUT repos/will-wright-eng/homebrew-tools/actions/permissions \
+  gh api -X PUT repos/will-wright-eng/homebrew-tap/actions/permissions \
     -F enabled=true -f allowed_actions=selected -F sha_pinning_required=true
-  gh api -X PUT repos/will-wright-eng/homebrew-tools/actions/permissions/selected-actions \
+  gh api -X PUT repos/will-wright-eng/homebrew-tap/actions/permissions/selected-actions \
     -F github_owned_allowed=true -F verified_allowed=false -f 'patterns_allowed[]=Homebrew/actions/*'
   ```
 
@@ -241,23 +241,23 @@ to the push, so `brew` and the bump script never see it.
       formula runs arbitrary build code on the runner.
 
   ```bash
-  gh api -X PUT repos/will-wright-eng/homebrew-tools/actions/permissions/fork-pr-contributor-approval \
+  gh api -X PUT repos/will-wright-eng/homebrew-tap/actions/permissions/fork-pr-contributor-approval \
     -f approval_policy=all_external_contributors
   ```
 
 - [ ] **T6.4 Enable Dependabot alerts, security updates, and private vulnerability reporting.**
 
   ```bash
-  gh api -X PUT repos/will-wright-eng/homebrew-tools/vulnerability-alerts
-  gh api -X PUT repos/will-wright-eng/homebrew-tools/automated-security-fixes
-  gh api -X PUT repos/will-wright-eng/homebrew-tools/private-vulnerability-reporting
+  gh api -X PUT repos/will-wright-eng/homebrew-tap/vulnerability-alerts
+  gh api -X PUT repos/will-wright-eng/homebrew-tap/automated-security-fixes
+  gh api -X PUT repos/will-wright-eng/homebrew-tap/private-vulnerability-reporting
   ```
 
 - [ ] **T6.5 Delete branches automatically after merge**, so `livecheck/bump` starts
       clean each time.
 
   ```bash
-  gh api -X PATCH repos/will-wright-eng/homebrew-tools -F delete_branch_on_merge=true
+  gh api -X PATCH repos/will-wright-eng/homebrew-tap -F delete_branch_on_merge=true
   ```
 
 - [ ] **T6.6 Merge Dependabot PR #2** (`actions/checkout` `v4.4.0` → `v7.0.1`). Its
@@ -295,7 +295,7 @@ Not recommended:
 | `social-signals` | PyPI `0.3.1` (sdist + wheel). GitHub release still tagged `v0.4.0`; author email typo still present. |
 | `media-mgmt-cli` | `v0.12.0` Latest on GitHub, but `pyproject.toml` on `main` still says `0.11.0`; PyPI latest is `0.11.0`. |
 
-`brew livecheck --tap will-wright-eng/tools` returns a version for all six formulas with
+`brew livecheck --tap will-wright-eng/tap` returns a version for all six formulas with
 no errors; `hc` and `sosig` report as outdated.
 
 ## Verification
@@ -303,11 +303,11 @@ no errors; `hc` and `sosig` report as outdated.
 Run this for each formula locally before pushing:
 
 ```bash
-brew tap will-wright-eng/tools "$(pwd)"
-brew audit --strict will-wright-eng/tools/<name>
-brew install --build-from-source will-wright-eng/tools/<name>
-brew test will-wright-eng/tools/<name>
-brew livecheck will-wright-eng/tools/<name>
+brew tap will-wright-eng/tap "$(pwd)"
+brew audit --strict will-wright-eng/tap/<name>
+brew install --build-from-source will-wright-eng/tap/<name>
+brew test will-wright-eng/tap/<name>
+brew livecheck will-wright-eng/tap/<name>
 brew uninstall <name>
 ```
 

@@ -21,7 +21,7 @@ jobs:
       pull-requests: write
       actions: write
     env:
-      TAP: will-wright-eng/tools
+      TAP: will-wright-eng/tap
       BRANCH: livecheck/bump
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

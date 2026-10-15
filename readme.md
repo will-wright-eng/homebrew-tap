@@ -1,4 +1,4 @@
-# homebrew-tools
+# homebrew-tap
 
 A personal Homebrew tap distributing six developer tools that each ship with a
 different, language-specific install path, plus a source build of the third-party
@@ -9,14 +9,14 @@ the formula design and the reasoning behind it, and
 ## Install
 
 ```bash
-brew tap will-wright-eng/tools
+brew tap will-wright-eng/tap
 brew install disktree g3 hc loch mdcsv mgmt sosig
 ```
 
 Or without tapping first:
 
 ```bash
-brew install will-wright-eng/tools/hc
+brew install will-wright-eng/tap/hc
 ```
 
 ## Tools
@@ -42,11 +42,11 @@ brew install will-wright-eng/tools/hc
 ## Development
 
 ```bash
-brew tap will-wright-eng/tools "$(pwd)"
-brew audit --strict will-wright-eng/tools/<name>
-brew install --build-from-source will-wright-eng/tools/<name>
-brew test will-wright-eng/tools/<name>
-brew livecheck will-wright-eng/tools/<name>
+brew tap will-wright-eng/tap "$(pwd)"
+brew audit --strict will-wright-eng/tap/<name>
+brew install --build-from-source will-wright-eng/tap/<name>
+brew test will-wright-eng/tap/<name>
+brew livecheck will-wright-eng/tap/<name>
 brew uninstall <name>
 ```
 

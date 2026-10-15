@@ -1,8 +1,8 @@
-# homebrew-tools: Design Document
+# homebrew-tap: Design Document
 
 ## Overview
 
-A personal Homebrew tap (`will-wright-eng/homebrew-tools`) distributing six developer
+A personal Homebrew tap (`will-wright-eng/homebrew-tap`) distributing six developer
 tools that today each have a different, language-specific install path — `go install`,
 `cargo build`, `uv tool install`, or `git clone && make install`. The tap collapses
 those into one command per tool, with pinned versions and auditable checksums. A
@@ -51,7 +51,7 @@ Every proposed formula name was checked against the Homebrew API. `hc`, `loch`, 
 `gists3`, `sosig`, `mgmt`, and `mdcsv` all return `404` for both
 `formulae.brew.sh/api/formula/<name>.json` and the cask equivalent — no collisions in
 core. Within a tap, a colliding name is still installable via the fully-qualified
-`will-wright-eng/tools/<name>`, so this is a convenience concern rather than a blocker.
+`will-wright-eng/tap/<name>`, so this is a convenience concern rather than a blocker.
 
 Note the `gists3` repo ships **two** commands under `cmd/`: `g3` (the real CLI) and
 `example`. The formula is named `g3` after the binary, not after the repo, and builds
@@ -63,7 +63,7 @@ second name is one more thing to keep in sync for no discoverability gain.
 ## Repository Structure
 
 ```
-homebrew-tools/
+homebrew-tap/
 ├── Formula/
 │   ├── disktree.rb
 │   ├── g3.rb
@@ -730,7 +730,7 @@ jobs:
       matrix:
         formula: ${{ fromJSON(needs.select.outputs.formulae) }}
     env:
-      FORMULA: will-wright-eng/tools/${{ matrix.formula }}
+      FORMULA: will-wright-eng/tap/${{ matrix.formula }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -763,7 +763,7 @@ explicit three steps above are easier to reason about for a personal tap.
 
 `livecheck.yml` runs at 14:00 UTC on the 1st of each month, and on manual dispatch:
 
-1. `brew livecheck --tap will-wright-eng/tools --json` writes every formula's current
+1. `brew livecheck --tap will-wright-eng/tap --json` writes every formula's current
    and latest version. A livecheck error does not stop the run; the bump script reports
    it after bumping the formulas that did resolve, and the job fails.
 2. `.github/scripts/bump_formula.py` rewrites the top-level `url` and `sha256` of each
@@ -815,11 +815,11 @@ the initial setup.
 **Per-formula verification loop**
 
 ```bash
-brew tap will-wright-eng/tools "$(pwd)"
-brew audit --strict will-wright-eng/tools/<name>
-brew install --build-from-source will-wright-eng/tools/<name>
-brew test will-wright-eng/tools/<name>
-brew livecheck will-wright-eng/tools/<name>
+brew tap will-wright-eng/tap "$(pwd)"
+brew audit --strict will-wright-eng/tap/<name>
+brew install --build-from-source will-wright-eng/tap/<name>
+brew test will-wright-eng/tap/<name>
+brew livecheck will-wright-eng/tap/<name>
 brew uninstall <name>
 ```
 
@@ -832,18 +832,18 @@ repairs it.
 ## User-facing Install
 
 ```bash
-brew tap will-wright-eng/tools
+brew tap will-wright-eng/tap
 brew install g3 hc loch mdcsv mgmt sosig
 ```
 
 Or without tapping first:
 
 ```bash
-brew install will-wright-eng/tools/hc
+brew install will-wright-eng/tap/hc
 ```
 
-Note the tap is named `will-wright-eng/tools`: `brew tap` strips the `homebrew-` prefix
-from the repository name `homebrew-tools`.
+Note the tap is named `will-wright-eng/tap`: `brew tap` strips the `homebrew-` prefix
+from the repository name `homebrew-tap`.
 
 ---
 

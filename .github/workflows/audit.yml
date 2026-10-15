@@ -72,7 +72,7 @@ jobs:
       matrix:
         formula: ${{ fromJSON(needs.select.outputs.formulae) }}
     env:
-      FORMULA: will-wright-eng/tools/${{ matrix.formula }}
+      FORMULA: will-wright-eng/tap/${{ matrix.formula }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
