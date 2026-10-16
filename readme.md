@@ -21,15 +21,18 @@ brew install will-wright-eng/tap/hc
 
 ## Tools
 
-| Formula | Description | Version | Status |
-|---------|-------------|---------|--------|
-| `disktree` | Treemap for finding and removing what fills your disk (macOS app + CLI) | `0.10.1` | Added; awaiting first CI run |
-| `g3` | Object storage CLI over GitHub Gists, speaking aws-cli vocabulary | `0.1.0` | Ready |
-| `hc` | Hot/cold codebase analysis: git churn crossed with file complexity | `1.4.1` | Ready; `1.4.2` bump pending |
-| `loch` | Per-commit LOC history via gix and tokei, without a working tree | `0.1.0` | Ready |
-| `mdcsv` | Convert between markdown tables and CSV | `0.3.1` | Ready |
-| `mgmt` | Command-line interface to search and manage media assets in S3 | `0.11.0` | Ready |
-| `sosig` | Analyze GitHub repositories and calculate social-signal metrics | `0.3.0` | Ready; `0.3.1` sdist switch pending |
+| Formula | Description | Upstream |
+|---------|-------------|----------|
+| `disktree` | Treemap for finding and removing what fills your disk (macOS app + CLI) | [tobi/disktree](https://github.com/tobi/disktree) |
+| `g3` | Object storage CLI over GitHub Gists, speaking aws-cli vocabulary | [will-wright-eng/gists3](https://github.com/will-wright-eng/gists3) |
+| `hc` | Hot/cold codebase analysis: git churn crossed with file complexity | [will-wright-eng/hc](https://github.com/will-wright-eng/hc) |
+| `loch` | Per-commit LOC history via gix and tokei, without a working tree | [will-wright-eng/loch](https://github.com/will-wright-eng/loch) |
+| `mdcsv` | Convert between markdown tables and CSV | [will-wright-eng/mdcsv](https://github.com/will-wright-eng/mdcsv) |
+| `mgmt` | Command-line interface to search and manage media assets in S3 | [will-wright-eng/media-mgmt-cli](https://github.com/will-wright-eng/media-mgmt-cli) |
+| `sosig` | Analyze GitHub repositories and calculate social-signal metrics | [will-wright-eng/social-signals](https://github.com/will-wright-eng/social-signals) |
+
+Each formula pins a release; `brew livecheck --tap will-wright-eng/tap` compares those
+pins with the latest upstream releases.
 
 ## CI
 
