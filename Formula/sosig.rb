@@ -3,17 +3,13 @@ class Sosig < Formula
 
   desc "Analyze GitHub repositories and calculate social-signal metrics"
   homepage "https://github.com/will-wright-eng/social-signals"
-  # The 0.3.0 sdist is unbuildable: pyproject.toml points readme at ../README.md,
-  # outside the package root, so hatchling rejects it. Install the wheel instead.
-  url "https://files.pythonhosted.org/packages/06/ef/a3a187249a1dc040219ad69ef69f40902126d4ef07686bfe5f56f43f0457/sosig-0.3.1-py3-none-any.whl", using: :nounzip
-  sha256 "5f6499fa89620a427f00f4fbb638b9021c159d868b2d904af01bda09a58aebee"
-  license "MIT"
+  url "https://files.pythonhosted.org/packages/4f/b7/bf2c3edb703b96de1d908744678a79ee226707bb3055dc7ffd7eee18f072/sosig-0.3.1.tar.gz"
+  sha256 "d39a1972cecb59b3cdd6c81ce750318dfb588ec5f14f6d78f9142ba482e00b7d"
+  license "GPL-3.0-or-later"
 
-  # `strategy :pypi` reads "sosig-0.3.0-py3-none" as the package name off a wheel
-  # URL, so the project page is named directly.
   livecheck do
-    url "https://pypi.org/pypi/sosig/json"
-    regex(/"version":\s*"([^"]+)"/i)
+    url :stable
+    strategy :pypi
   end
 
   # pip runs with --no-binary=:all:, so pydantic-core is built from Rust source.
@@ -31,11 +27,6 @@ class Sosig < Formula
     sha256 "13b2beaad985e05e2d6407ee4c4f35590b11f8d693a258a561055cac8f64cab7"
   end
 
-  resource "greenlet" do
-    url "https://files.pythonhosted.org/packages/3e/6e/0091f175ccd02b02bc8811bbcbcc6ac2e980be116e3b2f7a736ca322bf84/greenlet-3.5.6.tar.gz"
-    sha256 "8e67c43bdfc88d5fee6db0d3e40175b362fc95fb85f0412d233b9b203c53a575"
-  end
-
   resource "markdown-it-py" do
     url "https://files.pythonhosted.org/packages/06/ff/7841249c247aa650a76b9ee4bbaeae59370dc8bfd2f6c01f3630c35eb134/markdown_it_py-4.2.0.tar.gz"
     sha256 "04a21681d6fbb623de53f6f364d352309d4094dd4194040a10fd51833e418d49"
@@ -47,13 +38,13 @@ class Sosig < Formula
   end
 
   resource "pydantic" do
-    url "https://files.pythonhosted.org/packages/53/ef/fc4f868f4e2cee79f863883abffceff107875f569b848507319842d2a681/pydantic-2.13.5.tar.gz"
-    sha256 "51a9c5f7b2f8e636f04c6cada605d9b6a3bf1348fdf945a3d8869b19bba0ee08"
+    url "https://files.pythonhosted.org/packages/7c/0b/8e10b2e693af8ec54346a14caf36221334775975a747c9ceaa3f8371d96d/pydantic-2.14.1.tar.gz"
+    sha256 "94f478203dd03404682a1ada216965651dd74b1d2d5ffd62e00e0837caab5c26"
   end
 
   resource "pydantic-core" do
-    url "https://files.pythonhosted.org/packages/af/f9/8a06bea35ef8daf588f707784c973a7046e0034c8d8cfb08828eeffb8b75/pydantic_core-2.46.5.tar.gz"
-    sha256 "10416c15b8839ecc4ef4d0885da76da6fd0f67333a0eb8aff6d93c4b8f2910fc"
+    url "https://files.pythonhosted.org/packages/a6/24/af4ec4be49fbc810f35b0bdcacc3d433b56bbfa469fd3bfd4ae116cd9bf1/pydantic_core-2.50.1.tar.gz"
+    sha256 "e50d7b94baac6c7d09927fa5ca5800a0c7ee5015c7fcff65beb3a1931b5a6e09"
   end
 
   resource "pygments" do
@@ -72,18 +63,18 @@ class Sosig < Formula
   end
 
   resource "sqlalchemy" do
-    url "https://files.pythonhosted.org/packages/29/9c/271aa905cf2964f841371a97f3e63ab692bf51b4423d0491e67bc7f64037/sqlalchemy-2.0.54.tar.gz"
-    sha256 "baa8521e8ee9f24e75dfc7aaabc08020e551ef0d48d7c3e3536f5cddf277586b"
+    url "https://files.pythonhosted.org/packages/1f/44/311bac6b6ef81e4dfd0287d04900108b1f5c00c9761dd3c0a2b7b9d0f86b/sqlalchemy-2.1.4.tar.gz"
+    sha256 "7bd7ad604487daa7eab8716471c29a7185f17b5287ce73bb7bc79fea050d8cfd"
   end
 
   resource "sqlmodel" do
-    url "https://files.pythonhosted.org/packages/4f/60/aa4cb68f03fa6bd1ca9e9a9ca89c3bc6c67f50981d0abcd9d6364609516d/sqlmodel-0.0.47.tar.gz"
-    sha256 "3606430ea6db7f00c8ae2157458b9766644ea3ad365c601e26a86cf23f5910d5"
+    url "https://files.pythonhosted.org/packages/dd/67/b2c0b771c89c023262dd8fb6ba2cdc6a004e5ff75dd5763051b38ccd133a/sqlmodel-0.0.48.tar.gz"
+    sha256 "5582e87e845e23bb1179a7d8b11a4f5e441b4494528a41ee2fe1d129ffe91543"
   end
 
   resource "typer" do
-    url "https://files.pythonhosted.org/packages/16/f7/57713ba479fd405eb76de31404b2c744c289e336b2d999511ebf51e496f7/typer-0.27.2.tar.gz"
-    sha256 "269b7eb9d3c202ca84b4bc9618cb04ebb43d3d4d1e567e4c768607232c05f945"
+    url "https://files.pythonhosted.org/packages/03/51/d33db42cc72ffd8c30777547b42d01f0cbf9d95a770457698d0174b3ed71/typer-0.27.3.tar.gz"
+    sha256 "d0396f770a560ab1b0a8504e13b5f254b728cedb05c61cf0359e944e50ce8901"
   end
 
   resource "typing-extensions" do
@@ -97,13 +88,7 @@ class Sosig < Formula
   end
 
   def install
-    # The cached download is hash-prefixed; pip needs a PEP 427 filename.
-    wheel = buildpath/"sosig-#{version}-py3-none-any.whl"
-    cp cached_download, wheel
-
-    venv = virtualenv_create(libexec, "python3.14")
-    venv.pip_install resources
-    venv.pip_install_and_link wheel
+    virtualenv_install_with_resources
   end
 
   test do
