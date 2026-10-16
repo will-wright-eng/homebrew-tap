@@ -32,7 +32,7 @@ class Bump:
 
 
 def fetch(url: str) -> bytes:
-    request = urllib.request.Request(url, headers={"User-Agent": "homebrew-tools-livecheck"})
+    request = urllib.request.Request(url, headers={"User-Agent": "homebrew-tap-livecheck"})
     with urllib.request.urlopen(request, timeout=120) as response:
         return response.read()
 
@@ -136,7 +136,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("livecheck_json", type=Path, help="output of `brew livecheck --json`")
     parser.add_argument("--formula-dir", type=Path, default=Path("Formula"))
-    parser.add_argument("--tap", default="will-wright-eng/tools")
+    parser.add_argument("--tap", default="will-wright-eng/tap")
     parser.add_argument("--pr-body", type=Path, help="write the pull request body here")
     args = parser.parse_args()
 

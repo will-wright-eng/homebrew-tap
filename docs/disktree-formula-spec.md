@@ -1,10 +1,10 @@
-# Spec: disktree formula for homebrew-tools
+# Spec: disktree formula for homebrew-tap
 
 Sep 27, 2026 · @Will
 
 ## Summary
 
-Add `Formula/disktree.rb` to the `homebrew-tools` tap so `brew install will-wright-eng/tools/disktree` builds [tobi/disktree](https://github.com/tobi/disktree) from its tagged source on macOS and puts `disktree` on the PATH.
+Add `Formula/disktree.rb` to the `homebrew-tap` tap so `brew install will-wright-eng/tap/disktree` builds [tobi/disktree](https://github.com/tobi/disktree) from its tagged source on macOS and puts `disktree` on the PATH.
 
 In scope:
 
@@ -28,10 +28,10 @@ The tap stays formula-only. It ships no downloaded binaries (see `design-doc.md`
 
 ## Tap layout
 
-The formula lives at `Formula/disktree.rb` in the existing `will-wright-eng/homebrew-tools` GitHub repo, which Homebrew addresses as the tap `will-wright-eng/tools`.
+The formula lives at `Formula/disktree.rb` in the existing `will-wright-eng/homebrew-tap` GitHub repo, which Homebrew addresses as the tap `will-wright-eng/tap`.
 
 ```
-homebrew-tools/
+homebrew-tap/
 ├── Formula/
 │   ├── disktree.rb        (new)
 │   └── g3.rb, hc.rb, loch.rb, mdcsv.rb, mgmt.rb, sosig.rb
@@ -45,12 +45,12 @@ homebrew-tools/
 Users install it with:
 
 ```bash
-brew install will-wright-eng/tools/disktree   # taps automatically on first use
+brew install will-wright-eng/tap/disktree   # taps automatically on first use
 # or
-brew tap will-wright-eng/tools && brew install disktree
+brew tap will-wright-eng/tap && brew install disktree
 ```
 
-Develop from the repo checkout with `brew tap will-wright-eng/tools "$(pwd)"`, so local edits are what `brew install` builds.
+Develop from the repo checkout with `brew tap will-wright-eng/tap "$(pwd)"`, so local edits are what `brew install` builds.
 
 ## Formula design
 
@@ -131,11 +131,11 @@ The test relies on `--help` printing usage and exiting before any window opens, 
 The formula ships when a clean from-source install, `brew test` and a strict audit all pass on an Apple silicon Mac, and in CI. `audit.yml` gains `disktree` in its `formula` matrix, which also gates every bump PR that `livecheck.yml` opens.
 
 ```bash
-brew tap will-wright-eng/tools "$(pwd)"
-brew install --build-from-source --verbose will-wright-eng/tools/disktree
-brew test will-wright-eng/tools/disktree
-brew audit --strict --online will-wright-eng/tools/disktree
-brew style will-wright-eng/tools
+brew tap will-wright-eng/tap "$(pwd)"
+brew install --build-from-source --verbose will-wright-eng/tap/disktree
+brew test will-wright-eng/tap/disktree
+brew audit --strict --online will-wright-eng/tap/disktree
+brew style will-wright-eng/tap
 ```
 
 Then check by hand:
@@ -143,7 +143,7 @@ Then check by hand:
 - [ ] `codesign --verify --deep --strict "$(brew --prefix disktree)/disktree.app"` succeeds.
 - [ ] `disktree ~/Downloads` opens the window and scans.
 - [ ] The app opens from Finder after the `~/Applications` symlink in the caveats.
-- [ ] `brew install --HEAD will-wright-eng/tools/disktree` builds from `main`.
+- [ ] `brew install --HEAD will-wright-eng/tap/disktree` builds from `main`.
 - [ ] `brew uninstall disktree` leaves nothing in the prefix.
 
 ## Release updates
@@ -157,9 +157,9 @@ gh workflow run livecheck.yml
 Or bump by hand on a branch and open a PR so CI gates it:
 
 ```bash
-brew livecheck will-wright-eng/tools/disktree        # is there a newer tag?
+brew livecheck will-wright-eng/tap/disktree        # is there a newer tag?
 brew bump-formula-pr --write-only \
-  --version 0.10.2 will-wright-eng/tools/disktree   # rewrites url + sha256
+  --version 0.10.2 will-wright-eng/tap/disktree   # rewrites url + sha256
 git switch -c bump/disktree-0.10.2
 git commit -am 'chore(disktree): bump disktree to 0.10.2'
 gh pr create --fill
@@ -179,9 +179,9 @@ No bottles. They would mean adopting `brew test-bot` with `tests.yml` / `publish
 
 ## Acceptance criteria
 
-- [ ] `Formula/disktree.rb` merged to `main` of `homebrew-tools`.
+- [ ] `Formula/disktree.rb` merged to `main` of `homebrew-tap`.
 - [ ] `disktree` is in the `audit.yml` matrix, and its audit, install and test jobs pass.
-- [ ] `brew install will-wright-eng/tools/disktree` succeeds on a clean Apple silicon Mac on macOS 14+ with only Homebrew and the CLT.
+- [ ] `brew install will-wright-eng/tap/disktree` succeeds on a clean Apple silicon Mac on macOS 14+ with only Homebrew and the CLT.
 - [ ] `brew test` and `brew audit --strict --online` pass.
 - [ ] `brew livecheck` reports the latest upstream tag.
 - [ ] `readme.md` (install line and Tools table), `design-doc.md` (inventory, repository structure, and a short disktree section noting it is the tap's first third-party formula and first GUI app) and `formula-readiness.md` list `disktree`.
